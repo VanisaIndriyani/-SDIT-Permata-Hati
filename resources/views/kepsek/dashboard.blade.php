@@ -53,13 +53,17 @@
 <script>
 const ctx = document.getElementById('chartKelas');
 if (ctx) {
+    const chartData = @json($chartKelas);
+    const labels = chartData.map(item => item.nama_kelas);
+    const data = chartData.map(item => item.rata_rata);
+    
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Kelas V A', 'Kelas V B'],
+            labels: labels,
             datasets: [{
                 label: 'Rata-rata Nilai',
-                data: [85, 87],
+                data: data,
                 backgroundColor: 'rgba(40, 167, 69, 0.8)',
                 borderColor: 'rgba(40, 167, 69, 1)',
                 borderWidth: 1
@@ -67,10 +71,27 @@ if (ctx) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: true,
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 100
+                    max: 100,
+                    ticks: {
+                        stepSize: 10
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Rata-rata: ' + context.parsed.y.toFixed(2);
+                        }
+                    }
                 }
             }
         }

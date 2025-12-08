@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Nilai;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +26,22 @@ class DashboardController extends Controller
         // Rata-rata nilai
         $rataRataNilai = Nilai::whereNotNull('rata_rata')->avg('rata_rata');
         
-        return view('kepsek.dashboard', compact('jumlahGuru', 'jumlahSiswa', 'progress', 'rataRataNilai'));
+        // Rata-rata nilai per kelas untuk grafik
+        $kelas = Kelas::with('siswa')->get();
+        $chartKelas = [];
+        foreach ($kelas as $k) {
+            $siswaIds = $k->siswa->pluck('id');
+            $rataRata = Nilai::whereIn('siswa_id', $siswaIds)
+                ->whereNotNull('rata_rata')
+                ->avg('rata_rata') ?? 0;
+            
+            $chartKelas[] = [
+                'nama_kelas' => $k->nama_kelas,
+                'rata_rata' => round($rataRata, 2)
+            ];
+        }
+        
+        return view('kepsek.dashboard', compact('jumlahGuru', 'jumlahSiswa', 'progress', 'rataRataNilai', 'chartKelas'));
     }
 
     public function dataGuru()
