@@ -38,15 +38,20 @@
                             <label for="password" class="form-label fw-semibold">
                                 <i class="bi bi-lock"></i> Password <span class="text-danger">*</span>
                             </label>
-                            <input type="password" 
-                                   class="form-control @error('password') is-invalid @enderror" 
-                                   id="password" 
-                                   name="password" 
-                                   required
-                                   placeholder="Masukkan password">
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <div class="input-group">
+                                <input type="password" 
+                                       class="form-control @error('password') is-invalid @enderror" 
+                                       id="password" 
+                                       name="password" 
+                                       required
+                                       placeholder="Masukkan password">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword" onclick="togglePasswordVisibility('password', 'togglePassword')">
+                                    <i class="bi bi-eye" id="eyeIcon"></i>
+                                </button>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="d-grid mb-3">
@@ -97,6 +102,33 @@
         background: #ffffff;
         border-radius: 15px;
     }
+    
+    .input-group .btn {
+        border-left: 0;
+    }
+    
+    .input-group .form-control:focus + .btn {
+        border-color: #86b7fe;
+        box-shadow: none;
+    }
 </style>
+
+<script>
+    function togglePasswordVisibility(inputId, buttonId) {
+        const input = document.getElementById(inputId);
+        const button = document.getElementById(buttonId);
+        const icon = button.querySelector('i');
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    }
+</script>
 @endsection
 

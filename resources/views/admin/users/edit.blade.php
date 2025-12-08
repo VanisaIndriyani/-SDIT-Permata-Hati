@@ -69,17 +69,27 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="password" class="form-label">Password Baru (kosongkan jika tidak diubah)</label>
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" 
-                           id="password" name="password">
-                    @error('password')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <div class="input-group">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                               id="password" name="password">
+                        <button class="btn btn-outline-secondary" type="button" id="togglePassword" onclick="togglePasswordVisibility('password', 'togglePassword')">
+                            <i class="bi bi-eye" id="eyeIcon"></i>
+                        </button>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
             </div>
             <div class="mb-3">
                 <label for="password_confirmation" class="form-label">Konfirmasi Password Baru</label>
-                <input type="password" class="form-control" 
-                       id="password_confirmation" name="password_confirmation">
+                <div class="input-group">
+                    <input type="password" class="form-control" 
+                           id="password_confirmation" name="password_confirmation">
+                    <button class="btn btn-outline-secondary" type="button" id="togglePasswordConfirmation" onclick="togglePasswordVisibility('password_confirmation', 'togglePasswordConfirmation')">
+                        <i class="bi bi-eye" id="eyeIconConfirmation"></i>
+                    </button>
+                </div>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button type="submit" class="btn btn-primary">
@@ -89,5 +99,34 @@
         </form>
     </div>
 </div>
+
+<style>
+    .input-group .btn {
+        border-left: 0;
+    }
+    
+    .input-group .form-control:focus + .btn {
+        border-color: #86b7fe;
+        box-shadow: none;
+    }
+</style>
+
+<script>
+    function togglePasswordVisibility(inputId, buttonId) {
+        const input = document.getElementById(inputId);
+        const button = document.getElementById(buttonId);
+        const icon = button.querySelector('i');
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    }
+</script>
 @endsection
 
