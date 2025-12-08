@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@sditpermatahati.sch.id',
             'role' => 'admin',
-            'password' => Hash::make('password123'),
+            'password' => Hash::make('admin'),
         ]);
 
         // Create Tahun Ajaran
@@ -79,13 +79,16 @@ class DatabaseSeeder extends Seeder
 
         $guruUsers = [];
         foreach ($guruList as $index => $guruData) {
+            // Password khusus untuk guru_pai adalah 'guru', yang lain tetap 'password123'
+            $password = $guruData['username'] === 'guru_pai' ? 'guru' : 'password123';
+            
             $guru = User::create([
                 'name' => $guruData['name'],
                 'username' => $guruData['username'],
                 'email' => $guruData['username'] . '@sditpermatahati.sch.id',
                 'role' => 'guru',
                 'nip' => $guruData['nip'],
-                'password' => Hash::make('password123'),
+                'password' => Hash::make($password),
             ]);
             $guruUsers[] = $guru;
         }
@@ -97,7 +100,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'walikelas@sditpermatahati.sch.id',
             'role' => 'wali_kelas',
             'nip' => '197501151995032001',
-            'password' => Hash::make('password123'),
+            'password' => Hash::make('walikelas'),
         ]);
 
         // Update kelas dengan wali kelas
@@ -110,7 +113,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'kepsek@sditpermatahati.sch.id',
             'role' => 'kepsek',
             'nip' => '987654321',
-            'password' => Hash::make('password123'),
+            'password' => Hash::make('kepsek'),
         ]);
 
         // Assign mapel to guru (satu mapel per guru)
