@@ -114,15 +114,39 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('kepsek'),
         ]);
 
-        // Assign mapel to guru (satu mapel per guru)
-        $mapelIds = Mapel::pluck('id')->toArray();
-        foreach ($mapelIds as $index => $mapelId) {
-            if (isset($guruUsers[$index])) {
-                MapelGuru::create([
-                    'guru_id' => $guruUsers[$index]->id,
-                    'mapel_id' => $mapelId,
-                    'kelas_id' => $kelas->id,
-                ]);
+        // Assign mapel to guru (satu mapel per guru) - Mapping eksplisit untuk sinkronisasi
+        $mapelGuruMapping = [
+            'guru_pai' => 'PAI',
+            'guru_pkn' => 'PKN',
+            'guru_bin' => 'BIN',
+            'guru_mat' => 'MAT',
+            'guru_ipas' => 'IPAS',
+            'guru_sbdp' => 'SBDP',
+            'guru_pjok' => 'PJOK',
+            'guru_bsu' => 'BSU',
+            'guru_bing' => 'BING',
+            'guru_tahfidzh' => 'TAHFIDZH',
+            'guru_bar' => 'BAR',
+            'guru_btq' => 'BTQ',
+        ];
+
+        // Get all mapel dengan key berdasarkan kode_mapel
+        $mapelData = Mapel::all()->keyBy('kode_mapel');
+
+        // Assign mapel ke guru berdasarkan mapping
+        foreach ($guruUsers as $guru) {
+            $username = $guru->username;
+            if (isset($mapelGuruMapping[$username])) {
+                $kodeMapel = $mapelGuruMapping[$username];
+                $mapel = $mapelData->get($kodeMapel);
+                
+                if ($mapel) {
+                    MapelGuru::create([
+                        'guru_id' => $guru->id,
+                        'mapel_id' => $mapel->id,
+                        'kelas_id' => $kelas->id,
+                    ]);
+                }
             }
         }
 
@@ -200,6 +224,25 @@ class DatabaseSeeder extends Seeder
                     'deskripsi_kompetensi' => null,
                 ]);
             }
+        }
+
+        // Update Nilai PAS untuk semua siswa di semua mapel
+        $allNilai = Nilai::where('tahun_ajaran_id', $tahunAjaran->id)->get();
+        
+        foreach ($allNilai as $nilai) {
+            // Generate random nilai PAS between 60-100
+            $nilaiPas = rand(60, 100);
+            
+            // Hitung rata-rata dari UH dan PAS
+            $nilaiArray = array_filter([$nilai->nilai_uh, $nilaiPas], function($v) {
+                return $v !== null && $v !== '';
+            });
+            $rataRata = !empty($nilaiArray) ? array_sum($nilaiArray) / count($nilaiArray) : null;
+            
+            $nilai->update([
+                'nilai_pas' => $nilaiPas,
+                'rata_rata' => $rataRata,
+            ]);
         }
     }
 }

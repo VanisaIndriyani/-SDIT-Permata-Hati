@@ -15,22 +15,33 @@ class NilaiController extends Controller
     public function index()
     {
         $guru = Auth::user();
+        
+        // Ambil mapel yang benar-benar di-assign ke guru ini
         $mapelGuru = MapelGuru::where('guru_id', $guru->id)
-            ->with('mapel')
+            ->with('mapel', 'kelas')
             ->get()
             ->unique('mapel_id');
         
+        // Validasi: pastikan mapel yang dipilih benar-benar di-assign ke guru ini
         $mapelId = request('mapel_id');
         $siswa = collect();
+        $kelas = null;
         
         if ($mapelId) {
-            // Ambil kelas dari mapel_guru untuk mapel yang dipilih
+            // Validasi: cek apakah mapel ini benar-benar di-assign ke guru ini
             $mapelGuruSelected = MapelGuru::where('guru_id', $guru->id)
                 ->where('mapel_id', $mapelId)
                 ->with('kelas')
                 ->first();
             
+            if (!$mapelGuruSelected) {
+                // Jika mapel tidak di-assign ke guru ini, redirect kembali tanpa mapel_id
+                return redirect()->route('guru.nilai.index')
+                    ->with('error', 'Anda tidak memiliki akses ke mata pelajaran ini!');
+            }
+            
             if ($mapelGuruSelected && $mapelGuruSelected->kelas) {
+                $kelas = $mapelGuruSelected->kelas;
                 $kelasId = $mapelGuruSelected->kelas->id;
                 $siswa = Siswa::where('kelas_id', $kelasId)
                     ->with(['nilai' => function($query) use ($mapelId, $guru) {
@@ -42,7 +53,7 @@ class NilaiController extends Controller
             }
         }
         
-        return view('guru.nilai.index', compact('mapelGuru', 'siswa', 'mapelId'));
+        return view('guru.nilai.index', compact('mapelGuru', 'siswa', 'mapelId', 'kelas'));
     }
 
     public function store(Request $request)

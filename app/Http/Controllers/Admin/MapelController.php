@@ -5,14 +5,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Mapel;
 use App\Models\User;
+use App\Models\Kelas;
+use App\Models\MapelGuru;
 use Illuminate\Http\Request;
 
 class MapelController extends Controller
 {
     public function index()
     {
-        $mapel = Mapel::with('mapelGuru.guru')->paginate(10);
-        return view('admin.mapel.index', compact('mapel'));
+        $mapel = Mapel::with('mapelGuru.guru', 'mapelGuru.kelas')->paginate(10);
+        $guru = User::where('role', 'guru')->get();
+        $kelas = Kelas::all();
+        return view('admin.mapel.index', compact('mapel', 'guru', 'kelas'));
     }
 
     public function create()
@@ -68,5 +72,46 @@ class MapelController extends Controller
 
         return redirect()->route('admin.mapel.index')
             ->with('success', 'Mata pelajaran berhasil dihapus!');
+    }
+
+    public function assignGuru(Request $request, string $id)
+    {
+        $mapel = Mapel::findOrFail($id);
+        
+        $validated = $request->validate([
+            'guru_id' => 'required|exists:users,id',
+            'kelas_id' => 'required|exists:kelas,id',
+        ]);
+
+        // Check if already assigned
+        $existing = MapelGuru::where('mapel_id', $id)
+            ->where('guru_id', $validated['guru_id'])
+            ->where('kelas_id', $validated['kelas_id'])
+            ->first();
+
+        if ($existing) {
+            return redirect()->back()
+                ->with('error', 'Guru sudah di-assign ke mapel dan kelas ini!');
+        }
+
+        MapelGuru::create([
+            'mapel_id' => $id,
+            'guru_id' => $validated['guru_id'],
+            'kelas_id' => $validated['kelas_id'],
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'Guru berhasil di-assign ke mapel!');
+    }
+
+    public function removeGuru(string $mapelId, string $mapelGuruId)
+    {
+        $mapelGuru = MapelGuru::where('mapel_id', $mapelId)
+            ->findOrFail($mapelGuruId);
+        
+        $mapelGuru->delete();
+
+        return redirect()->back()
+            ->with('success', 'Guru berhasil dihapus dari mapel!');
     }
 }

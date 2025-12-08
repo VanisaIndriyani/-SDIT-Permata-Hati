@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function () {
         Route::get('guru', [GuruController::class, 'index'])->name('guru.index');
         Route::resource('kelas', KelasController::class);
         Route::resource('mapel', MapelController::class);
+        Route::post('mapel/{id}/assign-guru', [MapelController::class, 'assignGuru'])->name('mapel.assign-guru');
+        Route::delete('mapel/{mapelId}/remove-guru/{mapelGuruId}', [MapelController::class, 'removeGuru'])->name('mapel.remove-guru');
         Route::resource('siswa', SiswaController::class);
     });
 
