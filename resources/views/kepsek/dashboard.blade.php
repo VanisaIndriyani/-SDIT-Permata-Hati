@@ -3,7 +3,7 @@
 @section('title', 'Dashboard Kepala Sekolah')
 
 @section('content')
-<h2 class="fw-bold text-primary-custom mb-4"><i class="bi bi-speedometer2"></i> Dashboard Kepala Sekolah</h2>
+<h2 class="fw-bold text-primary-custom mb-4" style="padding-top: 10px;"><i class="bi bi-speedometer2"></i> Dashboard Kepala Sekolah</h2>
 
 <div class="row mb-4">
     <div class="col-md-3">

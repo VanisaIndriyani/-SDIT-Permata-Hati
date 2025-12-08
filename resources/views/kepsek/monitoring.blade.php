@@ -3,7 +3,7 @@
 @section('title', 'Monitoring Nilai - Kepala Sekolah')
 
 @section('content')
-<h2 class="fw-bold text-primary-custom mb-4"><i class="bi bi-graph-up"></i> Monitoring Nilai</h2>
+<h2 class="fw-bold text-primary-custom mb-4" style="padding-top: 10px;"><i class="bi bi-graph-up"></i> Monitoring Nilai</h2>
 
 <div class="row mb-4">
     <div class="col-md-6">

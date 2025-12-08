@@ -3,7 +3,7 @@
 @section('title', 'Edit Kelas - Admin')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4" style="padding-top: 10px;">
     <h2 class="fw-bold text-primary-custom"><i class="bi bi-building"></i> Edit Kelas</h2>
     <a href="{{ route('admin.kelas.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Kembali</a>
 </div>

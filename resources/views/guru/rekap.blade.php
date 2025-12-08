@@ -3,7 +3,7 @@
 @section('title', 'Rekap Nilai - Guru')
 
 @section('content')
-<h2 class="fw-bold text-primary-custom mb-4"><i class="bi bi-table"></i> Rekap Nilai</h2>
+<h2 class="fw-bold text-primary-custom mb-4" style="padding-top: 10px;"><i class="bi bi-table"></i> Rekap Nilai</h2>
 
 <div class="card mb-4">
     <div class="card-body">

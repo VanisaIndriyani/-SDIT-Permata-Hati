@@ -3,7 +3,7 @@
 @section('title', 'Kelola Mapel - Admin')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4" style="padding-top: 10px;">
     <h2 class="fw-bold text-primary-custom"><i class="bi bi-book"></i> Kelola Mata Pelajaran</h2>
     <a href="{{ route('admin.mapel.create') }}" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Tambah Mapel</a>
 </div>

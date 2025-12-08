@@ -93,6 +93,26 @@
         
         .main-content {
             transition: margin-left 0.3s ease;
+            min-height: calc(100vh - 56px);
+            padding-top: 70px !important;
+        }
+        
+        main {
+            padding: 0 !important;
+            margin-top: 0 !important;
+        }
+        
+        .main-content h2,
+        .main-content .card {
+            margin-top: 0;
+        }
+        
+        /* Padding untuk header halaman agar tidak tertutup navbar */
+        .main-content > h2:first-child,
+        .main-content > div:first-child > h2,
+        .main-content > div:first-child.d-flex {
+            padding-top: 0;
+            margin-top: 0;
         }
         
         @media (max-width: 768px) {
@@ -109,6 +129,7 @@
                 margin-left: 0 !important;
                 width: 100% !important;
                 padding: 15px !important;
+                padding-top: 70px !important;
             }
             
             .navbar-brand img {
@@ -441,7 +462,7 @@
                     @endif
                 </nav>
             </div>
-            <div class="col-md-10 main-content" style="margin-left: 16.666667%; padding: 15px;">
+            <div class="col-md-10 main-content" style="margin-left: 16.666667%; padding: 20px 15px;">
                 <!-- Mobile Menu Toggle Button -->
                 <button class="btn btn-primary d-md-none" onclick="toggleSidebar()" style="position: fixed; top: 60px; left: 10px; z-index: 1021; border-radius: 50%; width: 40px; height: 40px; padding: 0;">
                     <i class="bi bi-list"></i>
@@ -452,7 +473,7 @@
             @else
             <div class="col-12">
             @endauth
-                <main class="p-4">
+                <main style="padding: 0;">
                     @if(session('success'))
                         <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert" style="border-left: 4px solid var(--primary-green);">
                             <div class="d-flex align-items-center">

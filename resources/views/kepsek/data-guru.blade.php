@@ -3,7 +3,7 @@
 @section('title', 'Data Guru - Kepala Sekolah')
 
 @section('content')
-<h2 class="fw-bold text-primary-custom mb-4"><i class="bi bi-people"></i> Data Guru</h2>
+<h2 class="fw-bold text-primary-custom mb-4" style="padding-top: 10px;"><i class="bi bi-people"></i> Data Guru</h2>
 
 <div class="card">
     <div class="card-body">

@@ -3,7 +3,7 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
-<h2 class="fw-bold text-primary-custom mb-4"><i class="bi bi-speedometer2"></i> Dashboard Admin</h2>
+<h2 class="fw-bold text-primary-custom mb-4" style="padding-top: 10px;"><i class="bi bi-speedometer2"></i> Dashboard Admin</h2>
 
 <!-- Statistik Cards -->
 <div class="row mb-4">
