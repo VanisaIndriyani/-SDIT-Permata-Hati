@@ -41,6 +41,7 @@
                             <th>PTS</th>
                             <th>PAS</th>
                             <th>Rata-rata</th>
+                            <th>Deskripsi Kompetensi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,6 +78,14 @@
                             </td>
                             <td>
                                 <span class="rata-rata-{{ $s->id }}">{{ $nilai && $nilai->rata_rata ? number_format($nilai->rata_rata, 2) : '-' }}</span>
+                            </td>
+                            <td style="min-width: 200px;">
+                                <textarea 
+                                    class="form-control form-control-sm" 
+                                    name="nilai[{{ $s->id }}][deskripsi]" 
+                                    rows="2" 
+                                    style="font-size: 0.875rem; resize: vertical;"
+                                    placeholder="Contoh: Siswa sudah memahami konsep dasar dengan baik">{{ $nilai ? $nilai->deskripsi_kompetensi : '' }}</textarea>
                             </td>
                             <input type="hidden" name="siswa_id[]" value="{{ $s->id }}">
                         </tr>

@@ -69,6 +69,7 @@ class NilaiController extends Controller
             $nilaiUh = !empty($nilaiSiswa['uh']) ? (float)$nilaiSiswa['uh'] : null;
             $nilaiPts = !empty($nilaiSiswa['pts']) ? (float)$nilaiSiswa['pts'] : null;
             $nilaiPas = !empty($nilaiSiswa['pas']) ? (float)$nilaiSiswa['pas'] : null;
+            $deskripsi = !empty($nilaiSiswa['deskripsi']) ? trim($nilaiSiswa['deskripsi']) : null;
             
             // Validasi
             if ($nilaiUh !== null && ($nilaiUh < 0 || $nilaiUh > 100)) {
@@ -99,6 +100,7 @@ class NilaiController extends Controller
                     'nilai_pts' => $nilaiPts,
                     'nilai_pas' => $nilaiPas,
                     'rata_rata' => $rataRata,
+                    'deskripsi_kompetensi' => $deskripsi,
                 ]
             );
             $saved++;
