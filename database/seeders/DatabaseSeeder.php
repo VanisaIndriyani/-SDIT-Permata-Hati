@@ -79,16 +79,14 @@ class DatabaseSeeder extends Seeder
 
         $guruUsers = [];
         foreach ($guruList as $index => $guruData) {
-            // Password khusus untuk guru_pai adalah 'guru', yang lain tetap 'password123'
-            $password = $guruData['username'] === 'guru_pai' ? 'guru' : 'password123';
-            
+            // Semua guru mapel menggunakan password 'guru'
             $guru = User::create([
                 'name' => $guruData['name'],
                 'username' => $guruData['username'],
                 'email' => $guruData['username'] . '@sditpermatahati.sch.id',
                 'role' => 'guru',
                 'nip' => $guruData['nip'],
-                'password' => Hash::make($password),
+                'password' => Hash::make('guru'),
             ]);
             $guruUsers[] = $guru;
         }
