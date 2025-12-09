@@ -105,13 +105,33 @@
         
         .signature-box {
             text-align: center;
-            width: 200px;
+            width: 250px;
+        }
+        
+        .signature-image {
+            width: 120px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        
+        .signature-name {
+            font-weight: bold;
+            margin-top: 5px;
+            font-size: 11pt;
+        }
+        
+        .signature-title {
+            font-size: 10pt;
+            color: #666;
+            margin-top: 3px;
         }
         
         .signature-line {
             border-top: 1px solid #000;
-            margin-top: 60px;
+            margin-top: 10px;
             padding-top: 5px;
+            font-size: 10pt;
         }
         
         @media print {
@@ -184,11 +204,15 @@
     <div class="footer">
         <div class="signature">
             <div class="signature-box">
+                <img src="{{ asset('img/walikelas.PNG') }}" alt="TTD Wali Kelas" class="signature-image">
+                <div class="signature-name">Neneng Kartika Rosdianti, S.Pd.</div>
                 <div class="signature-line">
                     Wali Kelas
                 </div>
             </div>
             <div class="signature-box">
+                <img src="{{ asset('img/kepalasekolah.PNG') }}" alt="TTD Kepala Sekolah" class="signature-image">
+                <div class="signature-name">Ani Hartini, S.Pd. M.Pd</div>
                 <div class="signature-line">
                     Kepala Sekolah
                 </div>
