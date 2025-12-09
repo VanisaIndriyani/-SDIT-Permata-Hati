@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
 
         // Create Wali Kelas
         $waliKelas = User::create([
-            'name' => 'Siti Nurhaliza',
+            'name' => 'Neneng Kartika Rosdianti, S.Pd.',
             'username' => 'walikelas',
             'email' => 'walikelas@sditpermatahati.sch.id',
             'role' => 'wali_kelas',
@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder
 
         // Create Kepala Sekolah
         User::create([
-            'name' => 'Kepala Sekolah',
+            'name' => 'Ani Hartini, S.Pd. M.Pd',
             'username' => 'kepsek',
             'email' => 'kepsek@sditpermatahati.sch.id',
             'role' => 'kepsek',
