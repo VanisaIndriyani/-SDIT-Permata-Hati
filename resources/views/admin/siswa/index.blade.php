@@ -17,6 +17,7 @@
                         <th>No</th>
                         <th>NIS</th>
                         <th>Nama Siswa</th>
+                        <th>Jenis Kelamin</th>
                         <th>Kelas</th>
                         <th>Tahun Ajaran</th>
                         <th>Aksi</th>
@@ -28,6 +29,7 @@
                         <td>{{ $siswa->firstItem() + $index }}</td>
                         <td>{{ $s->nis }}</td>
                         <td>{{ $s->nama_siswa }}</td>
+                        <td>{{ $s->jenis_kelamin ?? '-' }}</td>
                         <td>{{ $s->kelas->nama_kelas ?? '-' }}</td>
                         <td>{{ $s->tahunAjaran->tahun_ajaran ?? '-' }}</td>
                         <td>
@@ -39,7 +41,7 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="6" class="text-center">Tidak ada data</td></tr>
+                    <tr><td colspan="7" class="text-center">Tidak ada data</td></tr>
                     @endforelse
                 </tbody>
             </table>

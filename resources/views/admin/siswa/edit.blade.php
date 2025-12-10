@@ -26,6 +26,17 @@
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
+                    <label class="form-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                    <select class="form-select @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" required>
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="Laki-laki" {{ old('jenis_kelamin', $siswa->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                        <option value="Perempuan" {{ old('jenis_kelamin', $siswa->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                    </select>
+                    @error('jenis_kelamin')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
                     <label class="form-label">Kelas <span class="text-danger">*</span></label>
                     <select class="form-select @error('kelas_id') is-invalid @enderror" name="kelas_id" required>
                         <option value="">Pilih Kelas</option>
